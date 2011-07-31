@@ -84,6 +84,10 @@ describe KV do
       end
     end
 
+    it "データが空の場合は空文字を返す" do
+      @kv.dump_string.should == ""
+    end
+
     it "時刻が指定された場合、指定時刻以降のデータのみを表示する" do
       @kv.put("k","v")
       time = Time.now
@@ -91,6 +95,15 @@ describe KV do
       @kv.put("k3","v3")
 
       @kv.dump_string(time).should == "k3: v3\nk2: v2\n"
+    end
+
+    it "指定時刻がputした時刻よりも後の場合、空文字を返す" do
+      @kv.put("k","v")
+      @kv.put("k2","v2")
+      @kv.put("k3","v3")
+      time = Time.now
+
+      @kv.dump_string(time).should == ""
     end
   end
 
