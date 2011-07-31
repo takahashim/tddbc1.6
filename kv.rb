@@ -5,6 +5,7 @@ class KV
   end
 
   def put(key, value)
+    raise ArgumentError if key.nil?
     @hash[key] = value
   end
 
@@ -21,6 +22,7 @@ class KV
   end
 
   def delete(key)
+    raise ArgumentError if key.nil?
     @hash.delete(key)
   end
   

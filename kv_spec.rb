@@ -15,6 +15,14 @@ describe KV do
       it "getでkeyに対応するvalueを取得できる" do
         @kv.get("k").should == "v"
       end
+
+      it "keyにnilを渡すと例外が発生する" do
+        expect { @kv.put(nil, "foo") }.to raise_error ArgumentError
+      end
+
+      it "valueにnilを渡すことは許容する" do
+        @kv.put("foo", nil)
+      end
     end
 
     describe "#put" do
@@ -34,6 +42,15 @@ describe KV do
       it "deleteで指定したkeyとvalueを削除する" do
         @kv.delete("k")
         @kv.get("k").should == nil
+      end
+
+      it "存在しないkeyが渡されたら何もしない" do
+        @kv.delete("k0")
+        @kv.get("k").should == "v"
+      end
+
+      it "keyにnilを渡すと例外が発生する" do
+        expect { @kv.delete(nil) }.to raise_error ArgumentError
       end
 
       it "kが削除されていること" do
