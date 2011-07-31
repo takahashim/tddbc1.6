@@ -34,14 +34,14 @@ class KV
     @hash.delete(key)
     @hash_time.delete(key)
   end
-  
+
   def mput(keys, values)
     unless keys.count == values.count
       raise ArgumentError
     end
 
     keys.each_with_index do |key, i|
-      @hash[key] = values[i]
+      self.put(key, values[i])
     end
   end
 end

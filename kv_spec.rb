@@ -92,6 +92,11 @@ describe KV do
         @kv.get("k").should == "v"
         @kv.get("k2").should == "v2"
       end
+
+      it "後ろにあるものほど先にdumpされること" do
+        @kv.mput(["k", "k2"], ["v", "v2"])
+        @kv.dump_string.should == "k2: v2\nk: v\n"
+      end
     end
 
     context "引数の個数が違う場合" do
