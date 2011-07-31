@@ -39,4 +39,11 @@ describe "kv" do
     @kv.delete("k")
     @kv.dump_string.should == ""
   end
+
+  it "putの引数に既に存在するkeyが指定された場合、valueのみを更新する" do
+    @kv.put("k", "v")
+    @kv.put("k", "v2")
+    @kv.get("k").should == "v2"
+  end
+
 end
