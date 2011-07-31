@@ -27,4 +27,16 @@ describe "kv" do
     @kv.put("k2", "v2")
     @kv.dump_string.should == "k: v\nk2: v2\n"
   end
+
+  it "deleteで指定したkeyとvalueを削除する" do
+    @kv.put("k", "v")
+    @kv.delete("k")
+    @kv.get("k").should == nil
+  end
+
+  it "kが削除されていること" do
+    @kv.put("k", "v")
+    @kv.delete("k")
+    @kv.dump_string.should == ""
+  end
 end

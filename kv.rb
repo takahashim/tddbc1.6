@@ -20,4 +20,7 @@ class KV
     @hash.map {|key, value| "#{key}: #{value}\n"}.join("")
   end
 
+  def delete(key)
+    @hash.delete(key)
+  end
 end
