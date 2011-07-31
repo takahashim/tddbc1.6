@@ -67,7 +67,7 @@ describe KV do
     end
     describe "#dump" do
       it "dumpで一覧表示" do
-        @kv.dump_string.should == "k: v\nk2: v2\n"
+        @kv.dump_string.should == "k2: v2\nk: v\n"
       end
     end
   end
@@ -75,11 +75,12 @@ describe KV do
   describe "#dump" do
     context "時間の逆順でputをした場合" do
       before do
-        @kv.put("k","v",Time.parse("2011/07/31"))
-        @kv.put("k2","v2",Time.parse("2011/07/30"))
+        @kv.put("k","v",Time.parse("2011/07/30"))
+        @kv.put("k2","v2",Time.parse("2011/07/29"))
+        @kv.put("k3","v3",Time.parse("2011/07/31"))
       end
       it "時間順にdumpされる" do
-        @kv.dump_string.should == "k2: v2\nk: v\n"
+        @kv.dump_string.should == "k3: v3\nk: v\nk2: v2\n"
       end
     end
   end

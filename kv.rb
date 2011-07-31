@@ -16,12 +16,16 @@ class KV
     @hash[key]
   end
 
+  def sort_by_time
+    @hash_time.sort_by{|key, time| time}.reverse.map{|key, value| [key, @hash[key]]}
+  end
+
   def dump
     print dump_string
   end
 
   def dump_string
-    @hash_time.sort_by{|key, time| time}.map{|key, value| "#{key}: #{@hash[key]}\n"}.join("")
+    sort_by_time.map{|key, value| "#{key}: #{value}\n"}.join("")
   end
 
   def delete(key)
