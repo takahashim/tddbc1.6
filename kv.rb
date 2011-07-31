@@ -6,7 +6,8 @@ class KV
     @hash_time = Hash.new
   end
 
-  def put(key, value, time = Time.now)
+  def put(key, value)
+    time = Time.now
     raise ArgumentError if key.nil?
     @hash[key] = value
     @hash_time[key] = time
