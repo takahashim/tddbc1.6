@@ -23,4 +23,14 @@ class KV
   def delete(key)
     @hash.delete(key)
   end
+  
+  def mput(keys, values)
+    unless keys.count == values.count
+      raise ArgumentError
+    end
+
+    keys.each_with_index do |key, i|
+      @hash[key] = values[i]
+    end
+  end
 end

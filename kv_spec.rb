@@ -46,4 +46,14 @@ describe "kv" do
     @kv.get("k").should == "v2"
   end
 
+  it "keyとvalueのセットを一度に複数追加できること" do
+    @kv.mput(["k", "k2"], ["v", "v2"])
+    @kv.get("k").should == "v"
+    @kv.get("k2").should == "v2"
+  end
+
+  it "個数が違う場合例外が発生すること" do
+    expect { @kv.mput(["k", "k2"], ["v", "v2", "v3"]) }.to raise_error
+  end
+
 end
