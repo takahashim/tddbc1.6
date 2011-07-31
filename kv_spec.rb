@@ -72,6 +72,18 @@ describe KV do
     end
   end
 
+  describe "#dump" do
+    context "時間の逆順でputをした場合" do
+      before do
+        @kv.put("k","v",Time.parse("2011/07/31"))
+        @kv.put("k2","v2",Time.parse("2011/07/30"))
+      end
+      it "時間順にdumpされる" do
+        @kv.dump_string.should == "k2: v2\nk: v\n"
+      end
+    end
+  end
+
   describe "#mput" do
     context "引数の個数がそれぞれ2個の場合" do
       it "keyとvalueのセットを一度に複数追加できること" do
