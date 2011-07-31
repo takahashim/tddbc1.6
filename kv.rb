@@ -25,8 +25,12 @@ class KV
     print dump_string
   end
 
-  def dump_string
-    sort_by_time.map{|key, value| "#{key}: #{value}\n"}.join("")
+  def dump_string(time = nil)
+    dump_array = sort_by_time
+    if time
+      dump_array.select!{|key, value| @hash_time[key] > time }
+    end
+    dump_array.map{|key, value| "#{key}: #{value}\n"}.join("")
   end
 
   def delete(key)

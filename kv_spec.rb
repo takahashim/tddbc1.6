@@ -83,6 +83,15 @@ describe KV do
         @kv.dump_string.should == "k3: v3\nk2: v2\nk: v\n"
       end
     end
+
+    it "時刻が指定された場合、指定時刻以降のデータのみを表示する" do
+      @kv.put("k","v")
+      time = Time.now
+      @kv.put("k2","v2")
+      @kv.put("k3","v3")
+
+      @kv.dump_string(time).should == "k3: v3\nk2: v2\n"
+    end
   end
 
   describe "#mput" do
